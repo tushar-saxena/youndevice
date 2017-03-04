@@ -41,7 +41,7 @@ dependencies {
 
 //	compile('org.springframework.boot:spring-boot-starter-web')
 //	compile('org.springframework.boot:spring-boot-starter-web-services')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+//  testCompile('org.springframework.boot:spring-boot-starter-test')
 
 
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -75,9 +75,9 @@ idea {
     }
 }
 
-springBoot {
-    mainClass = "com.connecto.ConnectoApplication"
-}
+//springBoot {
+//    mainClass = "com.connecto.ConnectoApplication"
+//}
 
 bootRun {
     addResources = false // We can set it to true if we would like to reload src/main/resources

@@ -1,5 +1,6 @@
 package com.connecto.conf;
 
+import com.connecto.domain.DomainMarker;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableAutoConfiguration
-@EntityScan(basePackages = {"com.connecto.domain"})
+@EntityScan(basePackageClasses = {DomainMarker.class})
 @EnableJpaRepositories(basePackages = {"com.connecto.repository"})
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:application.properties"})
