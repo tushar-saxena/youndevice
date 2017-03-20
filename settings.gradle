@@ -1,2 +1,3 @@
-include "connecto-rest"
-include "connecto-web"
+include "youndevice-rest"
+include "youndevice-admin"
+include "youndevicecore"
