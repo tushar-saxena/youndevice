@@ -32,6 +32,7 @@ repositories {
 
 
 dependencies {
+    compile project(':youndevice-core')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web-services')
     runtime('mysql:mysql-connector-java')
@@ -65,7 +66,7 @@ idea {
 }
 
 springBoot {
-    mainClass = "com.connecto.web.ConnectoWebApplication"
+    mainClass = "com.youndevice.admin.ConnectoWebApplication"
 }
 
 bootRun {

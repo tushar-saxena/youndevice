@@ -36,6 +36,7 @@ configurations {
 }
 
 dependencies {
+    compile project(':youndevice-core')
     compile('org.springframework.boot:spring-boot-starter-data-neo4j')
     compile('org.springframework.boot:spring-boot-starter-data-rest')
 
@@ -76,7 +77,7 @@ idea {
 }
 
 springBoot {
-    mainClass = "com.connecto.rest.ConnectoRestAppApplication"
+    mainClass = "com.youndevice.rest.ConnectoRestAppApplication"
 }
 
 bootRun {
