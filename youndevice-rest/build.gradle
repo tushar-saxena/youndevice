@@ -37,25 +37,8 @@ configurations {
 
 dependencies {
     compile project(':youndevice-core')
-    compile('org.springframework.boot:spring-boot-starter-data-neo4j')
-    compile('org.springframework.boot:spring-boot-starter-data-rest')
-
-//	compile('org.springframework.boot:spring-boot-starter-web')
-//	compile('org.springframework.boot:spring-boot-starter-web-services')
-//  testCompile('org.springframework.boot:spring-boot-starter-test')
-
-
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.hibernate:hibernate-core:4.3.6.Final")
-    compile("org.hibernate:hibernate-entitymanager:4.3.8.Final")
-    compile("org.hibernate:hibernate-validator:5.1.2.Final")
-    compile("javax.validation:validation-api:1.1.0.Final")
-    compile("mysql:mysql-connector-java")
+    compile("org.springframework.boot:spring-boot-starter-web")
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('com.jayway.jsonpath:json-path')
-    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-    providedRuntime('org.apache.tomcat.embed:tomcat-embed-jasper')
-    compile("org.springframework.boot:spring-boot-devtools")
 }
 
 
@@ -77,7 +60,7 @@ idea {
 }
 
 springBoot {
-    mainClass = "com.youndevice.rest.ConnectoRestAppApplication"
+    mainClass = "com.youndevice.rest.YounDeviceRestAppApplication"
 }
 
 bootRun {

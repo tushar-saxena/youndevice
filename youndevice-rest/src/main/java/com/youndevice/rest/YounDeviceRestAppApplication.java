@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ConnectoRestAppApplication {
+public class YounDeviceRestAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ConnectoRestAppApplication.class, args);
+		SpringApplication.run(YounDeviceRestAppApplication.class, args);
 	}
 }
