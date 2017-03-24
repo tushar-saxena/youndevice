@@ -9,7 +9,7 @@ public class UserController {
 
     @RequestMapping("/index")
     public User getDetails(@RequestParam(value="name", defaultValue="World") String name,
-                           @RequestParam(value="id", defaultValue="1") Long id) {
+                           @RequestParam(value="id", defaultValue="1") String id) {
         return new User(id,name);
     }
 }

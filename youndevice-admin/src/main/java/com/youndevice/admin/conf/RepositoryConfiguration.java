@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableAutoConfiguration
 @EntityScan(basePackageClasses = {DomainMarker.class})
-@EnableJpaRepositories(basePackages = {"com.connecto.web.repository"})
+@EnableJpaRepositories(basePackages = {"com.youndevice.web.repository"})
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:application.properties"})
 public class RepositoryConfiguration {

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.connecto.web")
+@ComponentScan(basePackages = "com.youndevice.web")
 public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationListener<ContextRefreshedEvent> {
 
     @Bean

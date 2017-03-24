@@ -1,5 +1,6 @@
 package com.youndevice.rest.conf;
 
+import com.youndevice.domain.DomainMarker;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +10,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableAutoConfiguration
-//@EntityScan(basePackageClasses = {DomainMarker.class})
-@EnableJpaRepositories(basePackages = {"com.connecto.rest.repository"})
+@EntityScan(basePackageClasses = {DomainMarker.class})
+@EnableJpaRepositories(basePackages = {"com.youndevice.repository"})
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:application.properties"})
 public class RepositoryConfiguration {
