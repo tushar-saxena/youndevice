@@ -45,4 +45,6 @@ public class Role extends BaseEntity implements GrantedAuthority {
         this.authority = authority;
         this.users = users;
     }
+
+    public Role(){}
 }

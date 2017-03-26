@@ -5,21 +5,19 @@ import com.youndevice.domain.User;
 import com.youndevice.repository.AuthenticationTokenRepository;
 import com.youndevice.repository.UserRepository;
 import com.youndevice.rest.dto.UserAuthentication;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.Map;
+import java.util.UUID;
 
-/**
- * Created by richa on 26/3/17.
- */
+
 @Service
+@Transactional
 public class TokenAuthenticationService {
 
     private static final String AUTH_HEADER_NAME = "X-AUTH-TOKEN";
@@ -50,7 +48,7 @@ public class TokenAuthenticationService {
         response.addHeader(AUTH_HEADER_NAME, tokenValue);
     }
 
-    public User getUserDetails(String authToken,Map<String,User> validUserData) {
+    public User getUserDetails(String authToken, Map<String, User> validUserData) {
 
 
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
@@ -58,14 +56,12 @@ public class TokenAuthenticationService {
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%%  getUserDetails  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
-
-        Set<String> roles = new HashSet<>();
         User user = validUserData.get(authToken);
         if (user == null) {
             AuthenticationToken authenticationToken = authenticationTokenRepository.findByTokenValue(authToken);
             if (authenticationToken != null) {
                 user = userRepository.findByEmailId(authenticationToken.getEmailId());
-                user.getRoles().forEach(role -> roles.add(role.getAuthority()));
+                Hibernate.initialize(user.getRoles());
                 validUserData.put(authToken, user);
             }
         }

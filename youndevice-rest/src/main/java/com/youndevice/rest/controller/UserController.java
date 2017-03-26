@@ -12,4 +12,11 @@ public class UserController {
                            @RequestParam(value="id", defaultValue="1") String id) {
         return new User(id,name);
     }
+
+
+    @RequestMapping("/admin")
+    public User getAdminDetails(@RequestParam(value="name", defaultValue="World") String name,
+                           @RequestParam(value="id", defaultValue="1") String id) {
+        return new User(id,name);
+    }
 }
