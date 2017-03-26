@@ -106,5 +106,8 @@ public class User extends BaseEntity {
         this.emailId = emailId;
         this.password = password;
     }
+
+    public User() {
+    }
 }
 

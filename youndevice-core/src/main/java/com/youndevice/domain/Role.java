@@ -1,10 +1,12 @@
 package com.youndevice.domain;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Role extends BaseEntity {
+public class Role extends BaseEntity implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,6 +38,11 @@ public class Role extends BaseEntity {
     }
 
     public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Role(String authority, Set<User> users){
+        this.authority = authority;
         this.users = users;
     }
 }
