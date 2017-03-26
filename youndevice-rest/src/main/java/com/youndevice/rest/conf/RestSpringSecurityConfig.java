@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,6 +37,12 @@ public class RestSpringSecurityConfig extends WebSecurityConfigurerAdapter {
         super(true);
     }
 
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/user/register");
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -58,11 +65,9 @@ public class RestSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //allow anonymous POSTs to login
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
 
-                //allow anonymous GETs to API
-                // .antMatchers(HttpMethod.GET, "/api/**").permitAll()
+                //allow anonymous POSTs to register
+                .antMatchers(HttpMethod.POST, "/user/register").permitAll()
 
-                //defined Admin only API area
-                .antMatchers("/admin/**").hasRole("ADMIN")
 
                 //all other request need to be authenticated
                 .anyRequest().hasRole("USER").and()

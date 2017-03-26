@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@Configuration
 public class CustomAuthenticationFilter extends GenericFilterBean {
 
     public static Map<String, User> validUserData = new HashMap<String, User>();

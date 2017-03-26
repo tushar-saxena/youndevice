@@ -31,20 +31,26 @@ public class YounDeviceRestAppApplication {
 
             @Override
             public void afterPropertiesSet() {
+                saveDefaultRole();
                 addUser("admin", "admin");
                 addUser("user", "user");
             }
 
             private void addUser(String emailId, String password) {
                 User user = new User(emailId, new BCryptPasswordEncoder().encode(password));
-                //user.setPassword(new BCryptPasswordEncoder().encode(password));
                 HashSet<Role> roleSet = new HashSet<Role>();
-                HashSet<User> users = new HashSet<User>();
-                users.add(user);
-                roleSet.add(emailId.equals("admin") ? new Role("ROLE_ADMIN", users) : new Role("ROLE_USER", users));
-                roleRepository.save(roleSet);
+                roleSet.add(emailId.equals("admin") ? roleRepository.findByAuthority("ROLE_ADMIN") : roleRepository.findByAuthority("ROLE_USER"));
                 user.setRoles(roleSet);
                 userRepository.save(user);
+            }
+
+            private void saveDefaultRole() {
+                Role role1 = new Role();
+                role1.setAuthority("ROLE_ADMIN");
+                roleRepository.save(role1);
+                Role role2 = new Role();
+                role2.setAuthority("ROLE_USER");
+                roleRepository.save(role2);
             }
         };
     }
