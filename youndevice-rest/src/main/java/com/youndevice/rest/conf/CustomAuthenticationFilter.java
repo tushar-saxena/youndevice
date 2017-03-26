@@ -57,11 +57,13 @@ public class CustomAuthenticationFilter extends GenericFilterBean {
                 chain.doFilter(req, res);
             } else {
                 HttpServletResponse httpServletResponse = (HttpServletResponse) res;
-                httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token.");
             }
         } else {
             SecurityContextHolder.getContext().setAuthentication(null);
-            chain.doFilter(req, res);
+            HttpServletResponse httpServletResponse = (HttpServletResponse) res;
+            httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, "Authorization header needed");
+            return;
         }
     }
 

@@ -28,6 +28,10 @@ public class RestSpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenAuthenticationService tokenAuthenticationService;
 
+
+    @Autowired
+    private RestAccessDeniedHandler restAccessDeniedHandler;
+
     public RestSpringSecurityConfig() {
         super(true);
     }
@@ -42,6 +46,8 @@ public class RestSpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         http.csrf().disable();
+        http.exceptionHandling().accessDeniedHandler(restAccessDeniedHandler);
+
         http.authorizeRequests()
 
                 //allow anonymous resource requests

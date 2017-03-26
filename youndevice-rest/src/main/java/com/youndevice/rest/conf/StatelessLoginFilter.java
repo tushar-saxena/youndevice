@@ -18,6 +18,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 
 class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
@@ -26,7 +27,7 @@ class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
     private final CustomUserDetailsService userDetailsService;
 
     public StatelessLoginFilter(String urlMapping, TokenAuthenticationService tokenAuthenticationService,
-                                   CustomUserDetailsService userDetailsService, AuthenticationManager authManager) {
+                                CustomUserDetailsService userDetailsService, AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(urlMapping));
         this.userDetailsService = userDetailsService;
         this.tokenAuthenticationService = tokenAuthenticationService;
@@ -43,7 +44,23 @@ class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%%  attemptAuthentication  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
-        final User user = new ObjectMapper().readValue(request.getInputStream(), User.class);
+        User user = new User();
+        StringBuffer requestData = new StringBuffer();
+        String line = null;
+        try {
+            BufferedReader reader = request.getReader();
+            while ((line = reader.readLine()) != null)
+                requestData.append(line);
+        } catch (IOException e) {
+            e.printStackTrace();
+            user = new User();
+        }
+        String requestDataString = requestData.toString();
+        if (requestDataString != null && !requestDataString.isEmpty() ) {
+            user = new ObjectMapper().readValue(requestDataString, User.class);
+        }
+
+
         final UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(
                 user.getEmailId(), user.getPassword());
         return getAuthenticationManager().authenticate(loginToken);
@@ -61,7 +78,7 @@ class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
 
         // Lookup the complete User object from the database and create an Authentication for it
         final UserDetails authenticatedUser = userDetailsService.loadUserByUsername(authentication.getName());
-        final UserAuthentication userAuthentication = new UserAuthentication(new User(authenticatedUser.getUsername(),authenticatedUser.getPassword()));
+        final UserAuthentication userAuthentication = new UserAuthentication(new User(authenticatedUser.getUsername(), authenticatedUser.getPassword()));
 
         // Add the custom token as HTTP header to the response
         tokenAuthenticationService.addAuthentication(response, userAuthentication);
