@@ -30,13 +30,13 @@ public class ApiResponseDTO<T> extends ResponseDTO<T> {
         status = false;
     }
 
-    ApiResponseDTO(String message, Boolean status, T data) {
+    public ApiResponseDTO(String message, Boolean status, T data) {
         this.message = message;
         this.status = status;
         this.data = data;
     }
 
-    ApiResponseDTO(String message, boolean status, int statusCode) {
+    public ApiResponseDTO(String message, boolean status, int statusCode) {
         this.message = message;
         this.status = status;
         this.statusCode = statusCode;
