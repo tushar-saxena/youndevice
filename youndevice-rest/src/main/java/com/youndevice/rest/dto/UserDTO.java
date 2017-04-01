@@ -1,7 +1,21 @@
 package com.youndevice.rest.dto;
 
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class UserDTO {
+
+    @NotBlank(message = "firstName.is.mandatory")
+    private String firstName;
+
+    @NotBlank(message = "lastName.is.mandatory")
+    private String lastName;
+
+    @NotBlank(message = "password.is.mandatory")
+    private String password;
+
+    @NotBlank(message = "emailId.is.mandatory")
+    private String emailId;
 
     public String getFirstName() {
         return firstName;
@@ -34,11 +48,4 @@ public class UserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    private String firstName;
-    private String lastName;
-    private String password;
-    private String emailId;
-
-
 }

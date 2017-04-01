@@ -5,11 +5,15 @@ import com.youndevice.rest.dto.ApiResponseDTO;
 import com.youndevice.rest.dto.UserDTO;
 import com.youndevice.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
 
 
     @Autowired
@@ -29,7 +33,7 @@ public class UserController {
     }
 
     @RequestMapping("/register")
-    public ApiResponseDTO register(@RequestBody UserDTO userDTO) {
+    public ApiResponseDTO register(@Validated @RequestBody UserDTO userDTO) {
         return userService.saveUser(userDTO);
 
     }
