@@ -1,7 +1,9 @@
 package com.youndevice.rest.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youndevice.domain.AuthenticationToken;
 import com.youndevice.domain.User;
+import com.youndevice.dto.ResponseDTO;
 import com.youndevice.repository.AuthenticationTokenRepository;
 import com.youndevice.repository.UserRepository;
 import com.youndevice.rest.dto.UserAuthentication;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,7 +26,7 @@ public class TokenAuthenticationService {
 
     private static final String AUTH_HEADER_NAME = "X-AUTH-TOKEN";
     public static final int HALF_AN_HOUR_IN_MILLISECONDS = 30 * 60 * 1000;
-
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     AuthenticationTokenRepository authenticationTokenRepository;
@@ -46,6 +50,16 @@ public class TokenAuthenticationService {
         String tokenValue = UUID.randomUUID().toString();
         authenticationTokenRepository.save(new AuthenticationToken(tokenValue, user.getEmailId()));
         response.addHeader(AUTH_HEADER_NAME, tokenValue);
+        Map<String, String> responseMap = new HashMap<>();
+        responseMap.put(AUTH_HEADER_NAME, tokenValue);
+        ResponseDTO<Map> responseDTO = new ResponseDTO<>();
+        responseDTO.setData(responseMap);
+        responseDTO.setStatus(Boolean.TRUE);
+        try {
+            response.getOutputStream().write(objectMapper.writeValueAsBytes(responseDTO));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public User getUserDetails(String authToken, Map<String, User> validUserData) {
