@@ -1,6 +1,7 @@
 package com.youndevice.rest.dto;
 
 
+import com.youndevice.rest.validator.annotations.UniqueEmail;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class UserDTO {
@@ -15,6 +16,7 @@ public class UserDTO {
     private String password;
 
     @NotBlank(message = "emailId.is.mandatory")
+    @UniqueEmail
     private String emailId;
 
     public String getFirstName() {

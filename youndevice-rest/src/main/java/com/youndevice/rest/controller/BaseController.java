@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +22,15 @@ public class BaseController {
 
     @Autowired
     private MessageSource messageSource;
+
+    @ExceptionHandler
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseDTO<String> handleException(HttpMessageNotReadableException exception) {
+        ResponseDTO<String> responseDTO = new ResponseDTO<String>();
+        responseDTO.setStatus(Boolean.FALSE);
+        responseDTO.setMessage(messageSource.getMessage("invalid.request", null, "Please provide valid request", LocaleContextHolder.getLocale()));
+        return responseDTO;
+    }
 
     @ExceptionHandler
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
