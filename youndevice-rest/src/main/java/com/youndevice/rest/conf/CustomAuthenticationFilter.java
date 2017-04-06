@@ -43,6 +43,8 @@ public class CustomAuthenticationFilter extends GenericFilterBean {
 
         User user = null;
         String authToken = ((HttpServletRequest) req).getHeader("X-Auth-Token");
+        HttpServletResponse httpServletResponse = (HttpServletResponse) res;
+        httpServletResponse.addHeader("Access-Control-Allow-Origin", "*");
         if (authToken != null && !authToken.isEmpty()) {
             Set<GrantedAuthority> authorities = new HashSet<>();
             user = tokenAuthenticationService.getUserDetails(authToken, validUserData);
@@ -55,12 +57,10 @@ public class CustomAuthenticationFilter extends GenericFilterBean {
                 SecurityContextHolder.getContext().setAuthentication(token);
                 chain.doFilter(req, res);
             } else {
-                HttpServletResponse httpServletResponse = (HttpServletResponse) res;
                 httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token.");
             }
         } else {
             SecurityContextHolder.getContext().setAuthentication(null);
-            HttpServletResponse httpServletResponse = (HttpServletResponse) res;
             httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, "Authorization header needed");
             return;
         }

@@ -82,7 +82,7 @@ class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
 
         // Add the custom token as HTTP header to the response
         tokenAuthenticationService.addAuthentication(response, userAuthentication);
-
+        response.addHeader("Access-Control-Allow-Origin", "*");
         // Add the authentication to the Security context
         SecurityContextHolder.getContext().setAuthentication(userAuthentication);
     }

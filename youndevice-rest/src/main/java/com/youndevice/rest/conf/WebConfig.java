@@ -14,8 +14,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addMapping("/api/**")
                 .allowedOrigins("*")
                 .allowedMethods("GET","POST","PUT", "DELETE","OPTIONS","HEAD")
-                .allowedHeaders("Access-Control-Allow-Headers", "X-Requested-With", "content-type","X-AUTH-TOKEN")
-                .exposedHeaders("Access-Control-Allow-Headers", "X-AUTH-TOKEN")
+                .allowedHeaders("Access-Control-Allow-Origin", "X-Requested-With", "content-type","X-AUTH-TOKEN")
+                .exposedHeaders("X-AUTH-TOKEN")
                 .allowCredentials(false).maxAge(3600);
     }
 }
