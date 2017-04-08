@@ -6,6 +6,7 @@ import com.youndevice.domain.User;
 import com.youndevice.dto.ResponseDTO;
 import com.youndevice.repository.AuthenticationTokenRepository;
 import com.youndevice.repository.UserRepository;
+import com.youndevice.rest.constants.RestConstants;
 import com.youndevice.rest.dto.UserAuthentication;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,8 @@ public class TokenAuthenticationService {
         response.addHeader(AUTH_HEADER_NAME, tokenValue);
         Map<String, String> responseMap = new HashMap<>();
         responseMap.put(AUTH_HEADER_NAME, tokenValue);
+        responseMap.put(RestConstants.FIRST_NAME, user.getFirstName());
+        responseMap.put(RestConstants.LAST_NAME, user.getLastName());
         ResponseDTO<Map> responseDTO = new ResponseDTO<>();
         responseDTO.setData(responseMap);
         responseDTO.setStatus(Boolean.TRUE);

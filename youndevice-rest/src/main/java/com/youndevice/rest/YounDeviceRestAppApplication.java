@@ -32,12 +32,12 @@ public class YounDeviceRestAppApplication {
             @Override
             public void afterPropertiesSet() {
                 saveDefaultRole();
-                addUser("admin", "admin");
-                addUser("user", "user");
+                addUser("Admin FirstName", "Admin LastName", "admin", "admin");
+                addUser("User FirstName", "User LastName", "user", "user");
             }
 
-            private void addUser(String emailId, String password) {
-                User user = new User(emailId, new BCryptPasswordEncoder().encode(password));
+            private void addUser(String firstName, String lastName, String emailId, String password) {
+                User user = new User(firstName, lastName, emailId, new BCryptPasswordEncoder().encode(password));
                 HashSet<Role> roleSet = new HashSet<Role>();
                 roleSet.add(emailId.equals("admin") ? roleRepository.findByAuthority("ROLE_ADMIN") : roleRepository.findByAuthority("ROLE_USER"));
                 user.setRoles(roleSet);
