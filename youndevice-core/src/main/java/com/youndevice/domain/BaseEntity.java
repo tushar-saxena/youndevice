@@ -3,7 +3,7 @@ package com.youndevice.domain;
 import java.util.Date;
 
 
-class BaseEntity {
+public class BaseEntity {
     private Boolean isDeleted = false;
 
     private Date dateCreated = new Date();

@@ -30,6 +30,9 @@ public class User extends BaseEntity {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private Set<Device> devices;
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -100,6 +103,14 @@ public class User extends BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Set<Device> devices) {
+        this.devices = devices;
     }
 
     public User(String emailId, String password) {

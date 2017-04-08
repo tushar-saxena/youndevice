@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
@@ -55,13 +54,4 @@ public class YounDeviceRestAppApplication {
             }
         };
     }
-
-    @Bean(name = "messageSource")
-    public ReloadableResourceBundleMessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageBundle = new ReloadableResourceBundleMessageSource();
-        messageBundle.setBasename("classpath:message");
-        messageBundle.setDefaultEncoding("UTF-8");
-        return messageBundle;
-    }
-
 }
