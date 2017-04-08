@@ -10,7 +10,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -77,8 +76,8 @@ class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
         // Lookup the complete User object from the database and create an Authentication for it
-        final UserDetails authenticatedUser = userDetailsService.loadUserByUsername(authentication.getName());
-        final UserAuthentication userAuthentication = new UserAuthentication(new User(authenticatedUser.getUsername(), authenticatedUser.getPassword()));
+        final User authenticatedUser = userDetailsService.loadUserByUsername(((User)authentication.getPrincipal()).getEmailId());
+        final UserAuthentication userAuthentication = new UserAuthentication(authenticatedUser);
 
         // Add the custom token as HTTP header to the response
         tokenAuthenticationService.addAuthentication(response, userAuthentication);

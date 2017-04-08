@@ -1,11 +1,15 @@
 package com.youndevice.domain;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
 @Entity(name = "user")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +28,16 @@ public class User extends BaseEntity {
     private Date dateOfBirth;
 
     private String password;
+
+
+    private boolean accountExpired = false;
+
+    private boolean accountLocked = false;
+
+    private boolean credentialsExpired = false;
+
+    private boolean accountEnabled = true;
+
 
 
     @ManyToMany
@@ -90,10 +104,6 @@ public class User extends BaseEntity {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -115,6 +125,40 @@ public class User extends BaseEntity {
     }
 
     public User() {
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return !accountExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !accountLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return !credentialsExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return accountEnabled;
     }
 }
 

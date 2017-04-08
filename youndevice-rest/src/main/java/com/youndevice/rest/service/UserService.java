@@ -6,14 +6,16 @@ import com.youndevice.repository.RoleRepository;
 import com.youndevice.repository.UserRepository;
 import com.youndevice.rest.dto.ApiResponseDTO;
 import com.youndevice.rest.dto.UserDTO;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -32,6 +34,12 @@ public class UserService {
         ApiResponseDTO apiResponseDTO = new ApiResponseDTO();
         apiResponseDTO.setMessage("User Saved Successfully");
         return apiResponseDTO;
+    }
+
+    public User getUserFromEmail(String emailId){
+        User user = userRepository.findByEmailId(emailId);
+        Hibernate.initialize(user.getRoles());
+        return user;
     }
 
 }
