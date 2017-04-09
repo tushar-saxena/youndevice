@@ -30,13 +30,13 @@ public class ApplianceApiService {
 
     public ApiResponseDTO<String> getApplianceStatus(Long applianceId) {
         Appliance appliance = appliancesRepoService.getOne(applianceId);
-        return new ApiResponseDTO<String>("Appliance status fetched successfully", Boolean.TRUE, appliance.getStatus());
+        return new ApiResponseDTO<String>("Appliance status fetched successfully", Boolean.TRUE, appliance.getWebStatus());
     }
 
     public ApiResponseDTO<String> setApplianceStatus(Long applianceId, String applianceStatus) {
         Appliance appliance = appliancesRepoService.getOne(applianceId);
-        appliance.setStatus(applianceStatus);
+        appliance.setActualDeviceStatus(applianceStatus);
         appliance = appliancesRepoService.save(appliance);
-        return new ApiResponseDTO<String>("Appliance status updated successfully", Boolean.TRUE, appliance.getStatus());
+        return new ApiResponseDTO<String>("Appliance status updated successfully", Boolean.TRUE, appliance.getActualDeviceStatus());
     }
 }

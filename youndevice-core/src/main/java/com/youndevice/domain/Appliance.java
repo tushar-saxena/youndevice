@@ -8,7 +8,10 @@ public class Appliance extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String status;
+    private String webStatus;
+
+    private String actualDeviceStatus;
+
 
     private String userFriendlyName;
 
@@ -24,12 +27,21 @@ public class Appliance extends BaseEntity {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
+    public String getWebStatus() {
+        return webStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+
+    public void setWebStatus(String webStatus) {
+        this.webStatus = webStatus;
+    }
+
+    public String getActualDeviceStatus() {
+        return actualDeviceStatus;
+    }
+
+    public void setActualDeviceStatus(String actualDeviceStatus) {
+        this.actualDeviceStatus = actualDeviceStatus;
     }
 
     public String getUserFriendlyName() {

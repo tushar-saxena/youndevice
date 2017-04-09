@@ -64,7 +64,7 @@ public class ApplicationReadyEventHandlerService implements ApplicationListener<
         Set<Appliance> appliances = new HashSet<>(noOfAppliances);
         for (Integer count = 0; count < noOfAppliances; count++) {
             Appliance appliance = new Appliance();
-            appliance.setStatus("1");
+            appliance.setWebStatus("1");
             appliance.setUserFriendlyName("User Friendly name for Appliance- ");
             appliances.add(appliance);
             appliance.setDevice(device);

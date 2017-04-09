@@ -29,13 +29,14 @@ public class ApplianceController extends BaseController {
         return null;
     }
 
-    @RequestMapping(value = "/status", method = RequestMethod.GET)
+    //THis api will be used by device to get current Status
+    @RequestMapping(value = "/device/status", method = RequestMethod.GET)
     public ApiResponseDTO<String> getApplianceStatus(@RequestParam(value = "appliance_id", defaultValue = "5") Long applianceId) {
         return applianceApiService.getApplianceStatus(applianceId);
     }
 
 
-    @RequestMapping(value = "/status", method = RequestMethod.POST)
+    @RequestMapping(value = "device/status", method = RequestMethod.POST)
     public ApiResponseDTO<String> setApplianceStatus(@RequestParam(value = "appliance_id", defaultValue = "5") Long applianceId,
                                                      @RequestParam(value = "appliance_status", defaultValue = "0") String applianceStatus) {
         return applianceApiService.setApplianceStatus(applianceId, applianceStatus);
