@@ -15,6 +15,8 @@ public class Device extends BaseEntity {
 
     private String userFriendlyName;
 
+    private String status;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -52,6 +54,14 @@ public class Device extends BaseEntity {
 
     public void setUserFriendlyName(String userFriendlyName) {
         this.userFriendlyName = userFriendlyName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public User getUser() {
