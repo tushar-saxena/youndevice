@@ -39,4 +39,11 @@ public class ApplianceApiService {
         appliance = appliancesRepoService.save(appliance);
         return new ApiResponseDTO<String>("Appliance status updated successfully", Boolean.TRUE, appliance.getActualDeviceStatus());
     }
+
+    public ApiResponseDTO<String> setApplianceWebStatus(Long applianceId, String applianceWebStatus) {
+        Appliance appliance = appliancesRepoService.getOne(applianceId);
+        appliance.setWebStatus(applianceWebStatus);
+        appliance = appliancesRepoService.save(appliance);
+        return new ApiResponseDTO<String>("Appliance Web status updated successfully", Boolean.TRUE, appliance.getWebStatus());
+    }
 }

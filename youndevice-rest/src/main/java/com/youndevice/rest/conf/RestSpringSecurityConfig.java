@@ -43,6 +43,7 @@ public class RestSpringSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/user/register");
         web.ignoring().antMatchers("/util/info");
         web.ignoring().antMatchers("/appliance/device/status");
+        web.ignoring().antMatchers("/appliance/device/changeWebStatus");
     }
 
     @Override

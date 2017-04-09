@@ -37,8 +37,14 @@ public class ApplianceController extends BaseController {
 
 
     @RequestMapping(value = "device/status", method = RequestMethod.POST)
-    public ApiResponseDTO<String> setApplianceStatus(@RequestParam(value = "appliance_id", defaultValue = "5") Long applianceId,
+    public ApiResponseDTO<String> setApplianceActualDeviceStatus(@RequestParam(value = "appliance_id", defaultValue = "5") Long applianceId,
                                                      @RequestParam(value = "appliance_status", defaultValue = "0") String applianceStatus) {
         return applianceApiService.setApplianceStatus(applianceId, applianceStatus);
+    }
+
+    @RequestMapping(value = "device/changeWebStatus", method = RequestMethod.POST)
+    public ApiResponseDTO<String> setApplianceWebStatus(@RequestParam(value = "appliance_id", defaultValue = "5") Long applianceId,
+                                                     @RequestParam(value = "web_status", defaultValue = "0") String applianceStatus) {
+        return applianceApiService.setApplianceWebStatus(applianceId, applianceStatus);
     }
 }
