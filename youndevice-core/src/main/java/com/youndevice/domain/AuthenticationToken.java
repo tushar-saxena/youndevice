@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 
 @Entity
-public class AuthenticationToken implements Serializable {
+public class AuthenticationToken extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

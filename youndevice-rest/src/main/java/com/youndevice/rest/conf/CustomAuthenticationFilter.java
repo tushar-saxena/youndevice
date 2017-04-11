@@ -49,11 +49,7 @@ public class CustomAuthenticationFilter extends GenericFilterBean {
             Set<GrantedAuthority> authorities = new HashSet<>();
             user = tokenAuthenticationService.getUserDetails(authToken, validUserData);
             if (user != null) {
-                for (Role role : user.getRoles()) {
-                    authorities.add(role);
-                }
-                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(authToken, "", authorities);
-                validUserData.put(authToken, user);
+                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(authToken, "", user.getRoles());
                 SecurityContextHolder.getContext().setAuthentication(token);
                 chain.doFilter(req, res);
             } else {
