@@ -2,7 +2,10 @@ package com.youndevice.bootstrap;
 
 import com.youndevice.domain.Appliance;
 import com.youndevice.domain.Device;
+import com.youndevice.domain.Role;
 import com.youndevice.domain.User;
+import com.youndevice.enums.RoleType;
+import com.youndevice.services.repoServices.RoleRepoService;
 import com.youndevice.services.repoServices.UserRepoService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -28,21 +32,32 @@ public class ApplicationReadyEventHandlerService implements ApplicationListener<
     @Autowired
     UserRepoService userRepoService;
 
+    @Autowired
+    RoleRepoService roleRepoService;
+
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         if (skipBootstrap) {
             log.info("Bootstrap skipped as config property 'skip.bootstrap' is set to true");
         } else {
+            createTestRole();
             createUserTestData();
         }
     }
 
     private void createUserTestData() {
         List<User> userList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            User user = new User("firstName", "lastName", "email" + i + "gmail.com", "igdefault");
-            user.setDevices(createTestDevices(i, user));
-            userList.add(user);
+        String testEmailId = null;
+        for (int i = 1; i <=5; i++) {
+            testEmailId = "email" + i + "@gmail.com";
+            if (userRepoService.countUserByEmailId(testEmailId) < 1) {
+                User user = new User("firstName", "lastName", testEmailId, new BCryptPasswordEncoder().encode("igdefault"));
+                user.setDevices(createTestDevices(i, user));
+                HashSet<Role> roleSet = new HashSet<Role>();
+                roleSet.add(roleRepoService.findRoleByAuthority(RoleType.ROLE_USER.name()));
+                user.setRoles(roleSet);
+                userList.add(user);
+            }
         }
         userRepoService.save(userList);
     }
@@ -70,5 +85,18 @@ public class ApplicationReadyEventHandlerService implements ApplicationListener<
             appliance.setDevice(device);
         }
         return appliances;
+    }
+
+    private void createTestRole() {
+        if (roleRepoService.countRoleByAuthority(RoleType.ROLE_ADMIN.name()) < 1) {
+            Role role1 = new Role();
+            role1.setAuthority(RoleType.ROLE_ADMIN.name());
+            roleRepoService.save(role1);
+        }
+        if (roleRepoService.countRoleByAuthority(RoleType.ROLE_USER.name()) < 1) {
+            Role role2 = new Role();
+            role2.setAuthority(RoleType.ROLE_USER.name());
+            roleRepoService.save(role2);
+        }
     }
 }
