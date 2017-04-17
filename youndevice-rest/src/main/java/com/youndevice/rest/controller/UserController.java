@@ -34,7 +34,7 @@ public class UserController extends BaseController {
         return new User(id, name);
     }
 
-    @RequestMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/register")
     public ApiResponseDTO register(@Validated @RequestBody UserDTO userDTO) {
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Registration");
         log.info("firstname = " + userDTO.getFirstName());
