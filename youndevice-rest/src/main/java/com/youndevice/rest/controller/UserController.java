@@ -31,6 +31,7 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/register")
+    @ResponseBody
     public ApiResponseDTO register(@Validated @RequestBody UserDTO userDTO) {
         return userService.saveUser(userDTO);
 
