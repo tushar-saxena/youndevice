@@ -5,6 +5,7 @@ import com.youndevice.rest.dto.ApiResponseDTO;
 import com.youndevice.rest.dto.UserDTO;
 import com.youndevice.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +31,7 @@ public class UserController extends BaseController {
         return new User(id, name);
     }
 
-    @RequestMapping("/register")
-    @ResponseBody
+    @RequestMapping(value = "/register",produces = MediaType.APPLICATION_JSON_VALUE , consumes =MediaType.APPLICATION_JSON_VALUE )
     public ApiResponseDTO register(@Validated @RequestBody UserDTO userDTO) {
         return userService.saveUser(userDTO);
 
