@@ -45,6 +45,13 @@ dependencies {
     compile("org.hibernate:hibernate-entitymanager:4.3.8.Final")
     compile("org.hibernate:hibernate-validator:5.1.2.Final")
     compile("javax.validation:validation-api:1.1.0.Final")
+
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    runtime('mysql:mysql-connector-java')
+    // https://mvnrepository.com/artifact/net.sourceforge.nekohtml/nekohtml
+    compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.13'
 }
 
 

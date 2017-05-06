@@ -1,6 +1,6 @@
 package com.youndevice.admin.conf;
 
-import com.youndevice.admin.domain.DomainMarker;
+import com.youndevice.admin.model.DomainMarker;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableAutoConfiguration
 @EntityScan(basePackageClasses = {DomainMarker.class})
-@EnableJpaRepositories(basePackages = {"com.youndevice.web.repository"})
+@EnableJpaRepositories(basePackages = {"com.youndevice.admin.repository"})
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:application.properties"})
 public class RepositoryConfiguration {
