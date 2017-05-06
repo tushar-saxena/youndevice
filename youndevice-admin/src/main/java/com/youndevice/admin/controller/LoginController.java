@@ -68,4 +68,21 @@ public class LoginController {
         return modelAndView;
     }
 
+    @RequestMapping(value="/test", method = RequestMethod.GET)
+    public ModelAndView test(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        modelAndView.setViewName("test");
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/index", method = RequestMethod.GET)
+    public ModelAndView index(){
+        ModelAndView modelAndView = new ModelAndView();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        User user = userService.findUserByEmail(auth.getName());
+        modelAndView.setViewName("index");
+        return modelAndView;
+    }
 }
