@@ -2,9 +2,13 @@ package com.youndevice.rest.controller;
 
 import com.youndevice.dto.ResponseDTO;
 import com.youndevice.rest.dto.ApiResponseDTO;
+import com.youndevice.rest.dto.ApplianceDTO;
 import com.youndevice.rest.service.apiServices.ApplianceApiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -15,10 +19,10 @@ public class ApplianceController extends BaseController {
     @Autowired
     ApplianceApiService applianceApiService;
 
-    @RequestMapping("/list")
-    public ResponseDTO listAppliancesByUserId(@RequestParam(value = "userId", defaultValue = "5") Long userId,
-                                              @RequestParam(value = "max", defaultValue = "10") Integer max,
-                                              @RequestParam(value = "offset", defaultValue = "0") Integer offset) {
+    @RequestMapping(value = "/list",produces = "application/json")
+    public @ResponseBody ResponseEntity<List<ApplianceDTO>> listAppliancesByUserId(@RequestParam(value = "userId", defaultValue = "5") Long userId,
+                                                 @RequestParam(value = "max", defaultValue = "10") Integer max,
+                                                 @RequestParam(value = "offset", defaultValue = "0") Integer offset) {
         return applianceApiService.findByUserId(userId, max, offset);
     }
 
