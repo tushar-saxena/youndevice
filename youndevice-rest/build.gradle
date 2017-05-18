@@ -67,3 +67,8 @@ bootRun {
     addResources = false // We can set it to true if we would like to reload src/main/resources
     jvmArgs = ["-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5013"]
 }
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'com.google.firebase:firebase-admin:4.1.3'
+}
