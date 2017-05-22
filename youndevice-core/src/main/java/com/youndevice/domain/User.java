@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "user")
@@ -37,7 +38,6 @@ public class User extends BaseEntity implements UserDetails {
     private boolean credentialsExpired = false;
 
     private boolean accountEnabled = true;
-
 
 
     @ManyToMany
@@ -170,6 +170,14 @@ public class User extends BaseEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return accountEnabled;
+    }
+
+    public void addToDevices(Device device) {
+        if (this.devices == null) {
+            this.devices = new HashSet<>();
+        }
+        this.devices.add(device);
+        device.setUser(this);
     }
 }
 

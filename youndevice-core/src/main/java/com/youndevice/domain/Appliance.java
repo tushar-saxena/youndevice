@@ -59,4 +59,8 @@ public class Appliance extends BaseEntity {
     public void setDevice(Device device) {
         this.device = device;
     }
+
+    public void addDevice(Device device) {
+        device.addToAppliances(this);
+    }
 }

@@ -1,6 +1,7 @@
 package com.youndevice.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "device")
@@ -78,5 +79,17 @@ public class Device extends BaseEntity {
 
     public void setAppliances(Set<Appliance> appliances) {
         this.appliances = appliances;
+    }
+
+    public void addToAppliances(Appliance appliance) {
+        if (this.appliances == null) {
+            this.appliances = new HashSet<>();
+        }
+        this.appliances.add(appliance);
+        appliance.setDevice(this);
+    }
+
+    public void addUser(User user) {
+        user.addToDevices(this);
     }
 }

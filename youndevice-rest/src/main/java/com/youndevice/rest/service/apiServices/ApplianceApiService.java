@@ -2,10 +2,11 @@ package com.youndevice.rest.service.apiServices;
 
 import com.youndevice.domain.Appliance;
 import com.youndevice.domain.Device;
-import com.youndevice.dto.ResponseDTO;
+import com.youndevice.domain.User;
 import com.youndevice.rest.dto.ApiResponseDTO;
 import com.youndevice.rest.dto.ApplianceDTO;
 import com.youndevice.rest.dto.DeviceDTO;
+import com.youndevice.rest.service.CustomUserDetailsService;
 import com.youndevice.services.repoServices.AppliancesRepoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +24,9 @@ public class ApplianceApiService {
     @Autowired
     private AppliancesRepoService appliancesRepoService;
 
+    @Autowired
+    CustomUserDetailsService customUserDetailsService;
+
     //TODO Instead of returning Domain object, return DTO
     public ResponseEntity<List<ApplianceDTO>> findByUserId(Long userId, Integer max, Integer offset) {
         Pageable pageable = new PageRequest(0, max);
@@ -31,9 +35,9 @@ public class ApplianceApiService {
         Device device;
         DeviceDTO deviceDTO;
         for (Appliance appliance : appliances) {
-            device  = appliance.getDevice();
-            deviceDTO = new DeviceDTO(device.getId(),device.getEnabled(),device.getDeviceType(),device.getUserFriendlyName(),device.getStatus());
-            applianceDTOList.add(ApplianceDTO.getApplianceDTO(appliance.getId(),appliance.getWebStatus(),appliance.getActualDeviceStatus(),appliance.getUserFriendlyName(),deviceDTO));
+            device = appliance.getDevice();
+            deviceDTO = new DeviceDTO(device.getId(), device.getEnabled(), device.getDeviceType(), device.getUserFriendlyName(), device.getStatus());
+            applianceDTOList.add(ApplianceDTO.getApplianceDTO(appliance.getId(), appliance.getWebStatus(), appliance.getActualDeviceStatus(), appliance.getUserFriendlyName(), deviceDTO));
         }
         ResponseEntity<List<ApplianceDTO>> responseEntity = new ResponseEntity<List<ApplianceDTO>>(applianceDTOList, HttpStatus.OK);
 //        responseDTO.setData(applianceDTOList);
@@ -59,5 +63,32 @@ public class ApplianceApiService {
         appliance.setWebStatus(applianceWebStatus);
         appliance = appliancesRepoService.save(appliance);
         return new ApiResponseDTO<String>("Appliance Web status updated successfully", Boolean.TRUE, appliance.getWebStatus());
+    }
+
+    public ApiResponseDTO<ApplianceDTO> registerAppliance(ApplianceDTO applianceDTO) {
+        ApiResponseDTO<ApplianceDTO> responseDTO = new ApiResponseDTO<ApplianceDTO>("Appliance saved successfully", Boolean.TRUE, applianceDTO);
+        //TODO Add validation
+        Appliance appliance = new Appliance();
+        appliance.setWebStatus(applianceDTO.getWebStatus());
+        appliance.setActualDeviceStatus(applianceDTO.getActualDeviceStatus());
+        appliance.setUserFriendlyName(applianceDTO.getUserFriendlyName());
+
+        //TODO
+        User user = customUserDetailsService.loadUserByUsername("ajay.kumar1@abc.com");
+
+
+        DeviceDTO deviceDTO = applianceDTO.getDevice();
+        Device device = new Device();
+        device.setEnabled(device.getEnabled());
+        device.setDeviceType(deviceDTO.getDeviceType());
+        device.setUserFriendlyName(deviceDTO.getUserFriendlyName());
+        device.setStatus(device.getStatus());
+        device.addToAppliances(appliance);
+        device.addUser(user);
+        appliance = appliancesRepoService.save(appliance);
+        applianceDTO.setId(appliance.getId());
+        deviceDTO.setId(appliance.getDevice().getId());
+        return responseDTO;
+
     }
 }

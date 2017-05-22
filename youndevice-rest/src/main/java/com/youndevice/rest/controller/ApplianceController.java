@@ -30,7 +30,7 @@ public class ApplianceController extends BaseController {
     @RequestMapping(value = "/device/register", method = RequestMethod.POST)
     public ApiResponseDTO registerAppliance(@RequestBody ApplianceDTO applianceDTO) {
         //TODO Ask the flow to register any Appliances
-        return new ApiResponseDTO<ApplianceDTO>("Returning Dummy Object", Boolean.TRUE, applianceDTO);
+        return applianceApiService.registerAppliance(applianceDTO);
     }
 
     //THis api will be used by device to get current Status
