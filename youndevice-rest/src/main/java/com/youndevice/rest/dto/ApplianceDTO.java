@@ -53,11 +53,13 @@ public class ApplianceDTO {
         this.userFriendlyName = userFriendlyName;
     }
 
-    public ApplianceDTO(Long id, String webStatus, String actualDeviceStatus, String userFriendlyName,DeviceDTO device) {
-        this.id = id;
-        this.webStatus = webStatus;
-        this.actualDeviceStatus = actualDeviceStatus;
-        this.userFriendlyName = userFriendlyName;
-        this.device = device;
+    public static ApplianceDTO getApplianceDTO(Long id, String webStatus, String actualDeviceStatus, String userFriendlyName, DeviceDTO device) {
+        ApplianceDTO applianceDTO = new ApplianceDTO();
+        applianceDTO.id = id;
+        applianceDTO.webStatus = webStatus;
+        applianceDTO.actualDeviceStatus = actualDeviceStatus;
+        applianceDTO.userFriendlyName = userFriendlyName;
+        applianceDTO.device = device;
+        return applianceDTO;
     }
 }

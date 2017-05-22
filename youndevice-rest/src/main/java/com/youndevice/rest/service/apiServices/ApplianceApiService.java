@@ -33,7 +33,7 @@ public class ApplianceApiService {
         for (Appliance appliance : appliances) {
             device  = appliance.getDevice();
             deviceDTO = new DeviceDTO(device.getId(),device.getEnabled(),device.getDeviceType(),device.getUserFriendlyName(),device.getStatus());
-            applianceDTOList.add(new ApplianceDTO(appliance.getId(),appliance.getWebStatus(),appliance.getActualDeviceStatus(),appliance.getUserFriendlyName(),deviceDTO));
+            applianceDTOList.add(ApplianceDTO.getApplianceDTO(appliance.getId(),appliance.getWebStatus(),appliance.getActualDeviceStatus(),appliance.getUserFriendlyName(),deviceDTO));
         }
         ResponseEntity<List<ApplianceDTO>> responseEntity = new ResponseEntity<List<ApplianceDTO>>(applianceDTOList, HttpStatus.OK);
 //        responseDTO.setData(applianceDTOList);

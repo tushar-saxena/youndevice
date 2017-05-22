@@ -53,6 +53,9 @@ public class DeviceDTO {
         this.status = status;
     }
 
+    public DeviceDTO() {
+    }
+
     public DeviceDTO(Long id, Boolean enabled, String deviceType, String userFriendlyName, String status) {
 
         this.id = id;
