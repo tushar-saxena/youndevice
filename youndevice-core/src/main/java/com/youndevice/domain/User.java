@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 
 @Entity(name = "user")
@@ -18,11 +17,7 @@ public class User extends BaseEntity implements UserDetails {
 
     private String name;
 
-    private String mobileNumber;
-
-    private String gender;
-
-    private Date dateOfBirth;
+    private String profile_url;
 
     private String password;
 
@@ -68,37 +63,20 @@ public class User extends BaseEntity implements UserDetails {
         return name;
     }
 
+    public String getProfile_url() {
+        return profile_url;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setProfile_url(String profile_url) {
+        this.profile_url = profile_url;
     }
 
     public void setId(String id) {
