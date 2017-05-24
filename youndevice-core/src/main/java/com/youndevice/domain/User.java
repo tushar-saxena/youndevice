@@ -17,7 +17,7 @@ public class User extends BaseEntity implements UserDetails {
 
     private String emailId;
 
-    private String name;
+    private String firstName;
 
     private String lastName;
 
@@ -29,7 +29,7 @@ public class User extends BaseEntity implements UserDetails {
 
     private String password;
 
-    private String profile_url;
+    private String profileUrl;
 
     private boolean accountExpired = false;
 
@@ -111,7 +111,7 @@ public class User extends BaseEntity implements UserDetails {
         this.password = password;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -121,6 +121,14 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setDevices(Set<Device> devices) {
         this.devices = devices;
+    }
+
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
     }
 
     public User(String emailId, String password) {
