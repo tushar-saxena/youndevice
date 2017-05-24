@@ -12,14 +12,11 @@ import java.util.Set;
 public class User extends BaseEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
     private String emailId;
 
-    private String firstName;
-
-    private String lastName;
+    private String name;
 
     private String mobileNumber;
 
@@ -55,7 +52,7 @@ public class User extends BaseEntity implements UserDetails {
         this.roles = roles;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -67,21 +64,14 @@ public class User extends BaseEntity implements UserDetails {
         this.emailId = emailId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getMobileNumber() {
         return mobileNumber;
@@ -111,7 +101,7 @@ public class User extends BaseEntity implements UserDetails {
         this.password = password;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -128,11 +118,10 @@ public class User extends BaseEntity implements UserDetails {
         this.password = password;
     }
 
-    public User(String firstName, String lastName, String emailId, String password) {
+    public User(String name, String emailId, String password) {
         this.emailId = emailId;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
     }
 
     public User() {
