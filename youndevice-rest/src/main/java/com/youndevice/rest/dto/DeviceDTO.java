@@ -1,6 +1,8 @@
 package com.youndevice.rest.dto;
 
 
+import com.youndevice.domain.Device;
+
 public class DeviceDTO {
 
     private Long id;
@@ -63,5 +65,10 @@ public class DeviceDTO {
         this.deviceType = deviceType;
         this.userFriendlyName = userFriendlyName;
         this.status = status;
+    }
+
+    public static DeviceDTO createDeviceDTO(Device device) {
+        return new DeviceDTO(device.getId(), device.getEnabled(),
+                device.getDeviceType(), device.getUserFriendlyName(), device.getStatus());
     }
 }
