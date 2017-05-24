@@ -5,6 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "user")
@@ -17,10 +19,17 @@ public class User extends BaseEntity implements UserDetails {
 
     private String name;
 
-    private String profile_url;
+    private String lastName;
+
+    private String mobileNumber;
+
+    private String gender;
+
+    private Date dateOfBirth;
 
     private String password;
 
+    private String profile_url;
 
     private boolean accountExpired = false;
 
@@ -29,7 +38,6 @@ public class User extends BaseEntity implements UserDetails {
     private boolean credentialsExpired = false;
 
     private boolean accountEnabled = true;
-
 
 
     @ManyToMany
@@ -59,27 +67,51 @@ public class User extends BaseEntity implements UserDetails {
         this.emailId = emailId;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getProfile_url() {
-        return profile_url;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setProfile_url(String profile_url) {
-        this.profile_url = profile_url;
-    }
-
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -96,10 +128,11 @@ public class User extends BaseEntity implements UserDetails {
         this.password = password;
     }
 
-    public User(String name, String emailId, String password) {
+    public User(String firstName, String lastName, String emailId, String password) {
         this.emailId = emailId;
         this.password = password;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public User() {
@@ -137,6 +170,14 @@ public class User extends BaseEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return accountEnabled;
+    }
+
+    public void addToDevices(Device device) {
+        if (this.devices == null) {
+            this.devices = new HashSet<>();
+        }
+        this.devices.add(device);
+        device.setUser(this);
     }
 }
 
