@@ -5,27 +5,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 
 @Entity(name = "user")
 public class User extends BaseEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
     private String emailId;
 
-    private String firstName;
+    private String name;
 
-    private String lastName;
-
-    private String mobileNumber;
-
-    private String gender;
-
-    private Date dateOfBirth;
+    private String profile_url;
 
     private String password;
 
@@ -55,7 +47,7 @@ public class User extends BaseEntity implements UserDetails {
         this.roles = roles;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -67,51 +59,27 @@ public class User extends BaseEntity implements UserDetails {
         this.emailId = emailId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getProfile_url() {
+        return profile_url;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setId(Long id) {
+    public void setProfile_url(String profile_url) {
+        this.profile_url = profile_url;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -128,11 +96,10 @@ public class User extends BaseEntity implements UserDetails {
         this.password = password;
     }
 
-    public User(String firstName, String lastName, String emailId, String password) {
+    public User(String name, String emailId, String password) {
         this.emailId = emailId;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
     }
 
     public User() {
