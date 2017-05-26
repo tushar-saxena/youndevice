@@ -55,7 +55,7 @@ public class DeviceApiService {
     public ApiResponseDTO<DeviceDTO> registerDevice(DeviceDTO deviceDTO) {
         ApiResponseDTO<DeviceDTO> responseDTO = new ApiResponseDTO<DeviceDTO>("Device saved successfully", Boolean.TRUE, deviceDTO);
         //TODO
-        User user = customUserDetailsService.loadUserByUsername("ajay.kumar1@abc.com");
+        User user = customUserDetailsService.loadUserByUsername("ajayishan.06@gmail.com");
 
         //TODO Add validation
         //TODO Handle the failure case

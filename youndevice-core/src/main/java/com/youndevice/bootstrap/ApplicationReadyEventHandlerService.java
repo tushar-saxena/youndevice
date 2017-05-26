@@ -15,6 +15,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,6 +42,7 @@ public class ApplicationReadyEventHandlerService implements ApplicationListener<
             log.info("Bootstrap skipped as config property 'skip.bootstrap' is set to true");
         } else {
             createTestRole();
+            createDefaultUser();
             createUserTestData();
         }
     }
@@ -48,10 +50,11 @@ public class ApplicationReadyEventHandlerService implements ApplicationListener<
     private void createUserTestData() {
         List<User> userList = new ArrayList<>();
         String testEmailId = null;
-        for (int i = 1; i <=5; i++) {
+        for (int i = 1; i <= 5; i++) {
             testEmailId = "email" + i + "@gmail.com";
             if (userRepoService.countUserByEmailId(testEmailId) < 1) {
                 User user = new User("firstName", "lastName", testEmailId, new BCryptPasswordEncoder().encode("igdefault"));
+                user.setId("user" + i);
                 user.setDevices(createTestDevices(i, user));
                 HashSet<Role> roleSet = new HashSet<Role>();
                 roleSet.add(roleRepoService.findRoleByAuthority(RoleType.ROLE_USER.name()));
@@ -60,6 +63,34 @@ public class ApplicationReadyEventHandlerService implements ApplicationListener<
             }
         }
         userRepoService.save(userList);
+    }
+
+    private void createDefaultUser() {
+        List<User> userList = new ArrayList<>();
+        User user1 = userRepoService.findUserByEmailId("ajayishan.06@gmail.com");
+        if (ObjectUtils.isEmpty(user1)) {
+            user1 = new User("Ajay", "Kumar", "ajayishan.06@gmail.com", new BCryptPasswordEncoder().encode("igdefault"));
+            user1.setId("ajay");
+            user1.setDevices(createTestDevices(1, user1));
+            HashSet<Role> roleSet1 = new HashSet<Role>();
+            roleSet1.add(roleRepoService.findRoleByAuthority(RoleType.ROLE_USER.name()));
+            user1.setRoles(roleSet1);
+            userList.add(user1);
+        }
+
+        User user2 = userRepoService.findUserByEmailId("anujgargcse@gmail.com");
+        if (ObjectUtils.isEmpty(user2)) {
+            user2 = new User("Anuj", "Garg", "anujgargcse@gmail.com", new BCryptPasswordEncoder().encode("igdefault"));
+            user2.setId("9KvXRzjuYKchu7zUfoiYQD1P6iT2");
+            user2.setDevices(createTestDevices(1, user2));
+            HashSet<Role> roleSet2 = new HashSet<Role>();
+            roleSet2.add(roleRepoService.findRoleByAuthority(RoleType.ROLE_USER.name()));
+            user2.setRoles(roleSet2);
+            userList.add(user2);
+        }
+        if (!ObjectUtils.isEmpty(userList)) {
+            userRepoService.save(userList);
+        }
     }
 
     private Set<Device> createTestDevices(Integer noOfDevices, User user) {
