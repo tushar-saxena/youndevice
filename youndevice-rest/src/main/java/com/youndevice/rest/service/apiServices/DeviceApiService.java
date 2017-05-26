@@ -21,6 +21,7 @@ public class DeviceApiService {
     @Autowired
     private DeviceRepoService deviceRepoService;
 
+    @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
     //TODO Instead of returning Domain object, return DTO
@@ -60,10 +61,10 @@ public class DeviceApiService {
         //TODO Add validation
         //TODO Handle the failure case
         Device device = new Device();
-        device.setEnabled(device.getEnabled());
+        device.setEnabled(deviceDTO.getEnabled());
         device.setDeviceType(deviceDTO.getDeviceType());
         device.setUserFriendlyName(deviceDTO.getUserFriendlyName());
-        device.setStatus(device.getStatus());
+        device.setStatus(deviceDTO.getStatus());
         device.addUser(user);
         device = deviceRepoService.save(device);
         deviceDTO.setId(device.getId());

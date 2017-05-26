@@ -21,7 +21,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+        //TODO Remove below lines
         web.ignoring().antMatchers("/appliance/device/status");
         web.ignoring().antMatchers("/appliance/device/changeWebStatus");
+        web.ignoring().antMatchers("/appliance/device/register");
+        web.ignoring().antMatchers("/device/register");
     }
 }
