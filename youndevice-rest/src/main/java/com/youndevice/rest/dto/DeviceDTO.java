@@ -5,7 +5,7 @@ import com.youndevice.domain.Device;
 
 public class DeviceDTO {
 
-    private Long id;
+    private String id;
 
     private Boolean enabled = Boolean.FALSE;
 
@@ -15,11 +15,11 @@ public class DeviceDTO {
 
     private String status;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -58,7 +58,7 @@ public class DeviceDTO {
     public DeviceDTO() {
     }
 
-    public DeviceDTO(Long id, Boolean enabled, String deviceType, String userFriendlyName, String status) {
+    public DeviceDTO(String id, Boolean enabled, String deviceType, String userFriendlyName, String status) {
 
         this.id = id;
         this.enabled = enabled;

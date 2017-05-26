@@ -61,6 +61,7 @@ public class DeviceApiService {
         //TODO Add validation
         //TODO Handle the failure case
         Device device = new Device();
+        device.setId(deviceDTO.getId());
         device.setEnabled(deviceDTO.getEnabled());
         device.setDeviceType(deviceDTO.getDeviceType());
         device.setUserFriendlyName(deviceDTO.getUserFriendlyName());

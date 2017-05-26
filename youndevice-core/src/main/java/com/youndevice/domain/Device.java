@@ -7,8 +7,7 @@ import java.util.Set;
 @Entity(name = "device")
 public class Device extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
     private Boolean enabled = Boolean.FALSE;
 
@@ -25,11 +24,11 @@ public class Device extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", orphanRemoval = true)
     private Set<Appliance> appliances;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

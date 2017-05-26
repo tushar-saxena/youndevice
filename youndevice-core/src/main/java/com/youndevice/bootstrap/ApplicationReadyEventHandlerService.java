@@ -97,6 +97,7 @@ public class ApplicationReadyEventHandlerService implements ApplicationListener<
         Set<Device> devices = new HashSet<>(noOfDevices);
         for (Integer count = 0; count < noOfDevices; count++) {
             Device device = new Device();
+            device.setId("Device Id- " + count);
             device.setDeviceType("Sample Type- " + count);
             device.setUserFriendlyName("User Friendly name for Device");
             device.setAppliances(createTestAppliances(count, device));

@@ -79,6 +79,7 @@ public class ApplianceApiService {
 
         DeviceDTO deviceDTO = applianceDTO.getDevice();
         Device device = new Device();
+        device.setId(deviceDTO.getId());
         device.setEnabled(device.getEnabled());
         device.setDeviceType(deviceDTO.getDeviceType());
         device.setUserFriendlyName(deviceDTO.getUserFriendlyName());
